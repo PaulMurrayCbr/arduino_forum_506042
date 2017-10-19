@@ -1,5 +1,5 @@
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
 #define LOG(s) Serial.println(s)
@@ -110,11 +110,11 @@ class RetractExtend {
     }
 
     void extend() {
-
       if (state == RETRACT) {
         digitalWrite(retractPin, LOW);
         delay(10);
       }
+      
       if (state != EXTEND) {
         LOG("extending actuator");
         digitalWrite(extendPin, HIGH);
@@ -123,12 +123,12 @@ class RetractExtend {
     }
 
     void off() {
+      // do this unconditionally, just in case
+      digitalWrite(retractPin, LOW);
+      digitalWrite(extendPin, LOW);
+
       if (state != IDLE) {
         LOG("stopping actuator");
-
-        digitalWrite(retractPin, LOW);
-        digitalWrite(extendPin, LOW);
-
         state = IDLE;
       }
     }
