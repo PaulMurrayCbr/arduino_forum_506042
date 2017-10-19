@@ -97,9 +97,10 @@ class RetractExtend {
     }
 
     void retract() {
+      // do this unconditionally, just in case
+      digitalWrite(extendPin, LOW);
 
       if (state == EXTEND) {
-        digitalWrite(extendPin, LOW);
         delay(10);
       }
       if (state != RETRACT) {
@@ -110,11 +111,12 @@ class RetractExtend {
     }
 
     void extend() {
+      // do this unconditionally, just in case
+      digitalWrite(retractPin, LOW);
       if (state == RETRACT) {
-        digitalWrite(retractPin, LOW);
         delay(10);
       }
-      
+
       if (state != EXTEND) {
         LOG("extending actuator");
         digitalWrite(extendPin, HIGH);
